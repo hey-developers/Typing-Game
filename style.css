@@ -11,6 +11,14 @@ body {
   margin: 0;
   font-family:cursive;
 }
+.correct {
+  color: green;
+}
+.incorrect {
+  color: rgb(234, 76, 76);
+  text-decoration: underline;
+}
+
 .flex{
   display: flex;
   align-items: center;
@@ -31,7 +39,7 @@ body {
   transition: background-color 0.5s ease-out;
 }
 .buttonReload:hover{
-  background-color: #2c3e50;
+  background-color: #5E6873;
   color: white;
   border: #fff 2px solid;
 
@@ -50,7 +58,6 @@ select {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  border-radius: 0;
   background-color: #a7c5e3;
 }
 
@@ -79,6 +86,30 @@ button:focus {
   transform: translateY(0);
   transition: transform 0.3s ease-in-out;
 }
+.settings > div > a {
+  font-size: 30px;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 10px;
+  padding: 8px;
+  transition: background-color 0.5s ease-out;
+}
+.settings > div > a:hover {
+  background-color: #5E6873;
+}
+#settings-form{
+  color: white;
+  font-size: 30px;
+}
+#difficulty {
+  font-size: 25px; /* or any other value you prefer */
+  font-family: Arial, sans-serif; /* or any other font you prefer */
+  color: #333; /* or any other color you prefer */
+  border: 2px solid #ccc; /* or any other border style you prefer */
+  border-radius: 5px; /* or any other border-radius you prefer */
+  padding: 10px; /* or any other padding you prefer */
+  background-color: #f9f9f9; /* or any other background-color you prefer */
+}
 
 .settings.hide {
   transform: translateY(-100%);
@@ -86,6 +117,9 @@ button:focus {
 #word{
   font-size: 55px;
   padding-block: 15px;
+  margin-bottom: 1rem;
+  margin-left: calc(1rem + 2px);
+  margin-right: calc(1rem + 2px);
 }
 .container {
   background-color: #01464e;
@@ -110,11 +144,16 @@ button:focus {
 .container > input{
   font-size: larger;
 }
-h2 {
-  background-color: rgba(0, 0, 0, 0.3);
+.settings div h2 {
   padding: 8px;
-  border-radius: 4px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 30px;
 }
+.settings div h2:hover{
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
 
 h1 {
   margin: 0;
