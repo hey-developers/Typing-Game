@@ -39,13 +39,18 @@ const timeInterval = setInterval(updateTime, 1000);
 async function getRandomWord(level) {
   let wordLength;
   if(level == "medium"){
-    wordLength = parseInt(5);
+      wordLength = Math.floor(Math.random() * 2) + 6;
   }
   else if(level == "hard"){
-    wordLength = parseInt(7);
+    wordLength = Math.floor(Math.random() * 4) + 6;
   }
   else{
-    wordLength = parseInt(4);
+    if(score >= 5){
+      wordLength = Math.floor(Math.random() * 2) + 4;
+    }
+    else{
+      wordLength = Math.floor(Math.random() * 3) + 2;
+    }
   }
 
   const response = await fetch(
