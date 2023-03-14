@@ -3,19 +3,44 @@
 }
 
 body {
-  background-color: #2c3e50;
+  background-color: #c0d6ed;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   margin: 0;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family:cursive;
 }
+.flex{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ranOut{
+  color: rgb(234, 76, 76);
+  font-size: 50px;
+}
+.buttonReload{
+  border-radius: 10px;
+  padding: 10px;
+  padding-inline: 20px;
+  outline: transparent;
+  border: 5px;
+  margin-top: 30px;
+  border: #fff 2px solid;
+  transition: background-color 0.5s ease-out;
+}
+.buttonReload:hover{
+  background-color: #2c3e50;
+  color: white;
+  border: #fff 2px solid;
 
+}
 button {
   cursor: pointer;
-  font-size: 14px;
-  border-radius: 4px;
+  font-size: 18px;
+  outline: none;
+  /* border-radius: 4px; */
   padding: 5px 15px;
 }
 
@@ -49,8 +74,8 @@ button:focus {
   height: 70px;
   color: #fff;
   display: flex;
+  justify-content: space-evenly;
   align-items: center;
-  justify-content: center;
   transform: translateY(0);
   transition: transform 0.3s ease-in-out;
 }
@@ -58,23 +83,37 @@ button:focus {
 .settings.hide {
   transform: translateY(-100%);
 }
-
+#word{
+  font-size: 55px;
+  padding-block: 15px;
+}
 .container {
-  background-color: #34495e;
+  background-color: #01464e;
   padding: 20px;
   border-radius: 4px;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 15px 17px rgba(0, 0, 0, 0.5);
   color: #fff;
   position: relative;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   width: 500px;
+  border-radius: 20px;
+  height: 40vh;
+}
+.container > small{
+  font-size: 20px;
 }
 
+.container > input{
+  font-size: larger;
+}
 h2 {
   background-color: rgba(0, 0, 0, 0.3);
   padding: 8px;
   border-radius: 4px;
-  margin: 0 0 40px;
 }
 
 h1 {
@@ -92,14 +131,16 @@ input {
 
 .score-container {
   position: absolute;
-  top: 60px;
+  top: 15px;
+  font-size: x-large;
   right: 20px;
 }
 
 .time-container {
   position: absolute;
-  top: 60px;
+  top: 15px;
   left: 20px;
+  font-size: x-large;
 }
 
 .end-game-container {

@@ -8,122 +8,6 @@ const settings = document.getElementById("settings");
 const settingsForm = document.getElementById("settings-form");
 const difficultySelect = document.getElementById("difficulty");
 
-// List of words for game
-const words = [
-  "sigh",
-  "tense",
-  "airplane",
-  "ball",
-  "pies",
-  "juice",
-  "warlike",
-  "bad",
-  "north",
-  "dependent",
-  "steer",
-  "silver",
-  "highfalutin",
-  "superficial",
-  "quince",
-  "eight",
-  "feeble",
-  "admit",
-  "drag",
-  "loving",
-  "apple",
-  "mountain",
-  "computer",
-  "elephant",
-  "rainbow",
-  "giraffe",
-  "library",
-  "ocean",
-  "chocolate",
-  "butterfly",
-  "television",
-  "basketball",
-  "sunglasses",
-  "sunrise",
-  "lemon",
-  "guitar",
-  "jellyfish",
-  "fireworks",
-  "magazine",
-  "kangaroo",
-  "thunderstorm",
-  "helicopter",
-  "waterfall",
-  "dolphin",
-  "hiking",
-  "orchestra",
-  "dragonfly",
-  "puppy",
-  "lemonade",
-  "umbrella",
-  "volcano",
-  "snowflake",
-  "forest",
-  "cowboy",
-  "scuba diving",
-  "mermaid",
-  "popcorn",
-  "soccer",
-  "train",
-  "lemonade",
-  "bicycle",
-  "hamster",
-  "ice cream",
-  "skateboard",
-  "sunglasses",
-  "island",
-  "keyboard",
-  "lighthouse",
-  "jellybean",
-  "marshmallow",
-  "kite",
-  "museum",
-  "beach",
-  "book",
-  "candle",
-  "desk",
-  "envelope",
-  "flower",
-  "globe",
-  "hospital",
-  "ink",
-  "jar",
-  "key",
-  "love",
-  "moon",
-  "nest",
-  "oasis",
-  "paintbrush",
-  "queen",
-  "rabbit",
-  "sun",
-  "train station",
-  "universe",
-  "vase",
-  "whale",
-  "xylophone",
-  "yacht",
-  "zebra",
-  "alpaca",
-  "banana",
-  "cactus",
-  "donut",
-  "eagle",
-  "fish",
-  "giraffe",
-  "horse",
-  "igloo",
-  "jaguar",
-  "kiwi",
-  "lion",
-  "moon",
-  "night",
-];
-
 // Init word
 let randomWord;
 
@@ -151,14 +35,30 @@ text.focus();
 // Start counting down
 const timeInterval = setInterval(updateTime, 1000);
 
-// Generate random word from array
-function getRandomWord() {
-  return words[Math.floor(Math.random() * words.length)];
+// Generate random word from API
+async function getRandomWord(level) {
+  let wordLength;
+  if(level == "medium"){
+    wordLength = parseInt(5);
+  }
+  else if(level == "hard"){
+    wordLength = parseInt(7);
+  }
+  else{
+    wordLength = parseInt(4);
+  }
+
+  const response = await fetch(
+    `https://random-word-api.herokuapp.com/word?length=${wordLength}`
+  );
+  const data = await response.json();
+  return data[0];
 }
 
 // Add word to DOM
-function addWordToDOM() {
-  randomWord = getRandomWord();
+async function addWordToDOM() {
+
+  randomWord = await getRandomWord(difficulty);
   word.innerHTML = randomWord;
 }
 
@@ -183,29 +83,29 @@ function updateTime() {
 // Game over, show end screen
 function gameOver() {
   endgameEl.innerHTML = `
-    <h1>Time ran out</h1>
-    <p>Your final score is ${score}</p>
-    <button onclick="location.reload()">Reload</button>
+    <h1 class="ranOut">Time ran out!</h1>
+    <div class="flex">
+    <p>Final Score: ${score}&nbsp;&nbsp;</p>
+    <p>Speed: 0 WPM</p>
+    </div>
+    <button class="buttonReload" onclick="location.reload()">Reload</button>
   `;
 
   endgameEl.style.display = "flex";
+  endgameEl.style.fontSize = "20px";
+  endgameEl.style.borderRadius ="20px"
 }
 
 addWordToDOM();
 
-// Event listeners
-
 // Typing
 text.addEventListener("input", (e) => {
   const insertedText = e.target.value;
-
   if (insertedText === randomWord) {
     addWordToDOM();
     updateScore();
-
     // Clear
     e.target.value = "";
-
     if (difficulty === "hard") {
       time += 2;
     } else if (difficulty === "medium") {
@@ -213,14 +113,11 @@ text.addEventListener("input", (e) => {
     } else {
       time += 5;
     }
-
     updateTime();
   }
 });
-
 // Settings btn click
 settingsBtn.addEventListener("click", () => settings.classList.toggle("hide"));
-
 // Settings select
 settingsForm.addEventListener("change", (e) => {
   difficulty = e.target.value;
