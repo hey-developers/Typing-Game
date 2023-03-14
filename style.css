@@ -136,6 +136,7 @@ button:focus {
   width: 500px;
   border-radius: 20px;
   height: 40vh;
+  max-width: 90%;
 }
 .container > small{
   font-size: 20px;

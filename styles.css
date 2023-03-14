@@ -8,45 +8,172 @@
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background-color: #1E0555;
+    background-color: #c0d6ed;
   }
   
   body, .quote-input {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: cursive;
+  }
+  select {
+    width: 200px;
+    padding: 5px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #a7c5e3;
   }
   
+  select:focus,
+  button:focus {
+    outline: 0;
+  }
+  
+  .settings-btn {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+  }
+  
+  .settings {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 70px;
+    color: #fff;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    transform: translateY(0);
+    transition: transform 0.3s ease-in-out;
+  }
+  .settings > div > a {
+    font-size: 30px;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 10px;
+    padding: 8px;
+    transition: background-color 0.5s ease-out;
+  }
+  .settings > div > a:hover {
+    background-color: #5E6873;
+  }
+  #settings-form{
+    color: white;
+    font-size: 30px;
+  }
+  #difficulty {
+    font-size: 25px; /* or any other value you prefer */
+    font-family: Arial, sans-serif; /* or any other font you prefer */
+    color: #333; /* or any other color you prefer */
+    border: 2px solid #ccc; /* or any other border style you prefer */
+    border-radius: 5px; /* or any other border-radius you prefer */
+    padding: 10px; /* or any other padding you prefer */
+    background-color: #f9f9f9; /* or any other background-color you prefer */
+  }
+  .flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ranOut{
+    color: rgb(234, 76, 76);
+    font-size: 50px;
+  }
+  .buttonReload{
+    /* border-radius: 10px; */
+    padding: 10px;
+    padding-inline: 20px;
+    outline: transparent;
+    font-family: cursive;
+    font-size: 30px;
+    /* margin-top: 30px; */
+    border-radius: 20px;
+    border: #fff 2px solid;
+    transition: background-color 0.5s ease-out;
+  }
+  .buttonReload:hover{
+    background-color: #5E6873;
+    color: white;
+    border: transparent 2px solid;
+}
+
+  .settings.hide {
+    transform: translateY(-100%);
+  }
+  .settings div h2 {
+    padding: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 30px;
+  }
+  .settings div h2:hover{
+    background-color: rgba(0, 0, 0, 0.3);
+  }
   .container {
-    background-color: #F0DB4F;
-    padding: 1rem;
-    border-radius: .5rem;
-    width: 700px;
+    background-color: #01464e;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 15px 17px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    position: relative;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 70%;
+    border-radius: 20px;
+    height: 50vh;
     max-width: 90%;
   }
+  .settings-btn {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+  }
   
+.settings.hide {
+  transform: translateY(-100%);
+}
   .timer {
     position: absolute;
-    top: 2rem;
+    top: 15vh;
     font-size: 3rem;
-    color: #F0DB4F;
+    color: rgb(234, 76, 76);
     font-weight: bold;
   }
   
   .quote-display {
     margin-bottom: 1rem;
+    font-size: 35px;
     margin-left: calc(1rem + 2px);
     margin-right: calc(1rem + 2px);
   }
-  
+  .end-game-container {
+    background-color: inherit;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
   .quote-input {
-    background-color: transparent;
+    background-color: white;
     border: 2px solid #A1922E;
     outline: none;
     width: 100%;
-    height: 8rem;
+    height: 15vh;
     margin: auto;
     resize: none;
     padding: .5rem 1rem;
-    font-size: 1rem;
+    font-size: 35px;
     border-radius: .5rem;
   }
   

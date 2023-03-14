@@ -16,23 +16,23 @@ let score = 0;
 let speed = 0;
 // Init time
 let time = 10;
-const fetchWords = async () => {
-  const response = await fetch(
-    "https://random-word-api.herokuapp.com/word?number=500"
-  );
-  return await response.json();
-};
+// const fetchWords = async () => {
+//   const response = await fetch(
+//     "https://random-word-api.herokuapp.com/word?number=500"
+//   );
+//   return await response.json();
+// };
 
-let allWords = [];
-(async () => {
-  allWords = await fetchWords();
-})();
+// let allWords = [];
+// (async () => {
+//   allWords = await fetchWords();
+// })();
 
-const getRandomWordByLength = (wordLength) => {
-  const filteredWords = allWords.filter((word) => word.length === wordLength);
-  const randomIndex = Math.floor(Math.random() * filteredWords.length);
-  return filteredWords[randomIndex];
-};
+// const getRandomWordByLength = (wordLength) => {
+//   const filteredWords = allWords.filter((word) => word.length === wordLength);
+//   const randomIndex = Math.floor(Math.random() * filteredWords.length);
+//   return filteredWords[randomIndex];
+// };
 // Set difficulty to value in ls or medium
 let difficulty =
   localStorage.getItem("difficulty") !== null
@@ -73,6 +73,7 @@ async function getRandomWord(level) {
 
 // Add word to DOM
 async function addWordToDOM() {
+  let difficulty = localStorage.getItem('difficulty');
   let randomWord = await getRandomWord(difficulty);
   word.innerHTML = "";
   Array.from(randomWord).forEach(function (character) {
