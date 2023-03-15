@@ -4,7 +4,14 @@ const quoteInputElement = document.getElementById("quoteInput");
 const timerElement = document.getElementById("timer");
 const endgameEl = document.getElementById("end-game-container");
 
+let previousCorrectWordCount = 0;
 let correctWordsCount = 0;
+let previousCharCount = 0;
+let totalCharCount = 0;
+let startTime = 31;
+let wrongCharCount = 0; // initialize to 0
+let timer1;
+
 quoteInputElement.addEventListener("input", () => {
   const arrayQuote = quoteDisplayElement.querySelectorAll("span");
   const arrayValue = quoteInputElement.value.split("");
@@ -19,24 +26,31 @@ quoteInputElement.addEventListener("input", () => {
       characterSpan.classList.add("correct");
       characterSpan.classList.remove("incorrect");
     } else {
-      characterSpan.classList.remove("correct");
-      characterSpan.classList.add("incorrect");
+      if (!characterSpan.classList.contains("incorrect")) {
+        characterSpan.classList.remove("correct");
+        characterSpan.classList.add("incorrect");
+        wrongCharCount = wrongCharCount + 1;
+        console.log(wrongCharCount);
+      }
       correct = false;
     }
   });
+  totalCharCount = previousCharCount + arrayValue.length;
   let mergedInnerHTML = "";
 
-  // Loop through each span in the NodeList
   for (let i = 0; i < arrayQuote.length; i++) {
-    // Check if the span has the "correct" class
-  if (arrayQuote[i].classList.contains("correct")) {
-      // Concatenate the innerHTML of the span to the merged string
-    mergedInnerHTML += arrayQuote[i].innerHTML;
+    if (arrayQuote[i].classList.contains("correct")) {
+      mergedInnerHTML += arrayQuote[i].innerHTML;
     }
   }
   const correctWords = mergedInnerHTML.trim().split(" ");
-  correctWordsCount = correctWords.length;
-  if (correct) renderNewQuote();
+  correctWordsCount = correctWords.length + previousCorrectWordCount;
+  if (correct) {
+    renderNewQuote();
+    previousCorrectWordCount = correctWordsCount;
+    console.log(previousCorrectWordCount);
+    previousCharCount = arrayValue.length;
+  };
 });
 
 function getRandomQuote() {
@@ -54,25 +68,32 @@ async function renderNewQuote() {
     quoteDisplayElement.appendChild(characterSpan);
   });
   quoteInputElement.value = null;
-  startTimer();
 }
 
-let startTime = 30;
-let timer1;
 function startTimer() {
-  timerElement.innerText = startTime;
   timer1 = new Date();
   setInterval(() => {
-    timer.innerText = getTimerTime();
+    const remainingTime = getTimerTime();
+    if (remainingTime >= 0) {
+      timerElement.innerText = remainingTime;
+    } else {
+      clearInterval(timer1);
+      gameOver();
+    }
   }, 1000);
 }
+console.log(wrongCharCount);
 
-// Game over, show end screen
 function gameOver() {
+  console.log(totalCharCount);
+  console.log(wrongCharCount);
+  let accuracy = (((totalCharCount - wrongCharCount) / totalCharCount) * 100).toFixed(2);
+
   endgameEl.innerHTML = `
     <h1 class="ranOut">Time ran out!</h1>
     <div class="flex">
-    <p>Speed: ${correctWordsCount/(startTime/60)} WPM</p>
+    <p>Accuracy: ${accuracy}%&nbsp;&nbsp;</p>
+    <p>Speed: ${(correctWordsCount/(startTime/60)).toFixed(1)} WPM</p>
     </div>
     <button class="buttonReload" onclick="location.reload()">Play Again</button>
   `;
@@ -82,14 +103,10 @@ function gameOver() {
   endgameEl.style.fontSize = "30px";
   endgameEl.style.borderRadius = "20px";
 }
-
 function getTimerTime() {
-  let currentTimer = startTime - Math.floor((new Date() - timer1) / 1000);
-  if (currentTimer === 0) {
-    clearInterval(setInterval(getTimerTime, 1000));
-    gameOver();
-  }
-  return currentTimer;
+  const elapsedTime = Math.floor((new Date() - timer1) / 1000);
+  const remainingTime = startTime - elapsedTime;
+  return remainingTime;
 }
-
 renderNewQuote();
+startTimer();
