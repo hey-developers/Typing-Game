@@ -79,7 +79,6 @@ async function addWordToDOM() {
   Array.from(randomWord).forEach(function (character) {
     const characterSpan = document.createElement("span");
     characterSpan.innerText = character;
-    console.log(character);
     word.appendChild(characterSpan);
   });
   text.value = null;
